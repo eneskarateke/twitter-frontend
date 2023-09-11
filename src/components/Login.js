@@ -1,14 +1,47 @@
-import React from "react";
-import TwitterLogo from "../logos/twitter-logo.svg"; // Replace with the actual path to your SVG file
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import TwitterLogo from "../logos/twitter-logo.svg";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const navigate = useNavigate();
+  const handleRegisterNavigation = () => {
+    navigate("/register");
+  };
+
+  function handleLogin() {
+    const userData = { email, password };
+
+    axios
+      .post("http://localhost:8080/profile/login", userData) // Change the URL to your login endpoint
+      .then((response) => {
+        console.log("Login successful:", response.data);
+        navigate("/feed");
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        alert("Login failed");
+      });
+  }
+
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
         paddingTop: 60,
-        paddingBottom: 544,
         background: "white",
         justifyContent: "center",
         alignItems: "center",
@@ -74,7 +107,7 @@ export default function Login() {
               wordWrap: "break-word",
             }}
           >
-            Phone number, email address
+            Email address
           </div>
         </div>
         <div
@@ -121,6 +154,7 @@ export default function Login() {
             top: 352,
             position: "absolute",
           }}
+          onClick={handleLogin} // Trigger the login function on click
         >
           <div
             style={{
@@ -175,6 +209,7 @@ export default function Login() {
             fontWeight: "400",
             wordWrap: "break-word",
           }}
+          onClick={handleRegisterNavigation}
         >
           Sign up to Twitter
         </div>

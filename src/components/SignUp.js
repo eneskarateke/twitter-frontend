@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import BackTwitter from "../logos/BackTwitter.svg"; // Replace with the actual path to your SVG file
 import TwitterLogo from "../logos/twitter-logo.svg"; // Replace with the actual path to your SVG file
@@ -6,6 +7,16 @@ import GoogleLogo from "../logos/google-icon.svg"; // Replace with the actual pa
 import AppleLogo from "../logos/logo-apple.svg"; // Replace with the actual path to your SVG file
 
 function SignUp() {
+  const navigate = useNavigate();
+
+  const handleRegisterNavigation = () => {
+    navigate("/register");
+  };
+
+  const handleLoginNavigation = () => {
+    navigate("/login");
+  };
+
   const containerStyle = {
     width: "100%",
     height: "100%",
@@ -69,11 +80,14 @@ function SignUp() {
         <span style={linkStyle}>, including </span>
         <span style={{ ...linkStyle, color: "#1E97E1" }}>Cookie Use</span>
         <span style={linkStyle}>.</span>
+        <div style={{ ...linkStyle, left: "1164px", top: "819px" }}>
+          Already have an account?{" "}
+          <span onClick={handleLoginNavigation} style={{ color: "#1E97E1" }}>
+            Log in
+          </span>
+        </div>
       </div>
-      <div style={{ ...linkStyle, left: "1164px", top: "819px" }}>
-        Already have an account?{" "}
-        <span style={{ color: "#1E97E1" }}>Log in</span>
-      </div>
+
       <img
         style={{
           width: "1121px",
@@ -133,6 +147,7 @@ function SignUp() {
               fontSize: "20px",
               fontWeight: "500",
             }}
+            onClick={handleRegisterNavigation}
           >
             Sign up with phone or email
           </div>

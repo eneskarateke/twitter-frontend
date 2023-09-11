@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import TwitterLogo from "../../logos/twitter-logo.svg"; // Replace with the actual path to your SVG file
 
 function SendTweet() {
-  // Create a state variable to store the text input value
   const [tweetText, setTweetText] = useState("");
 
-  // Function to handle changes in the input field
   const handleInputChange = (e) => {
     setTweetText(e.target.value);
   };
 
-  // Function to handle the form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    // You can perform any action with the tweetText here, e.g., send it to a server
+    e.preventDefault();
     console.log("Tweet submitted:", tweetText);
-    // Clear the input field
     setTweetText("");
   };
 
@@ -23,8 +17,8 @@ function SendTweet() {
     <div>
       <form onSubmit={handleSubmit}>
         <textarea
-          rows="4" // You can adjust the number of rows as needed
-          cols="50" // You can adjust the number of columns as needed
+          rows="4"
+          cols="50"
           value={tweetText}
           onChange={handleInputChange}
           placeholder="What's happening?"
