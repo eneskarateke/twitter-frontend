@@ -1,10 +1,10 @@
 import React from "react";
-import TwitterLogo from "../../logos/twitter-logo.svg"; // Replace with the actual path to your SVG file
+import TwitterLogo from "../../logos/twitter-logo.svg";
 
 function Navbar() {
   return (
     <div className="group-31">
-      <img className="twitter-logo-4-1" src={TwitterLogo} />
+      <img className="twitter-logo-4-1" src={TwitterLogo} alt="twitter-logo" />
       <div
         className="frame-6"
         style={{

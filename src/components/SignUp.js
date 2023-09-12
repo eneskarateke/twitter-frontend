@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import BackTwitter from "../logos/BackTwitter.svg"; // Replace with the actual path to your SVG file
-import TwitterLogo from "../logos/twitter-logo.svg"; // Replace with the actual path to your SVG file
-import GoogleLogo from "../logos/google-icon.svg"; // Replace with the actual path to your SVG file
-import AppleLogo from "../logos/logo-apple.svg"; // Replace with the actual path to your SVG file
+import BackTwitter from "../logos/BackTwitter.svg";
+import TwitterLogo from "../logos/twitter-logo.svg";
+import GoogleLogo from "../logos/google-icon.svg";
+import AppleLogo from "../logos/logo-apple.svg";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -82,7 +82,10 @@ function SignUp() {
         <span style={linkStyle}>.</span>
         <div style={{ ...linkStyle, left: "1164px", top: "819px" }}>
           Already have an account?{" "}
-          <span onClick={handleLoginNavigation} style={{ color: "#1E97E1" }}>
+          <span
+            onClick={handleLoginNavigation}
+            style={{ color: "#1E97E1", cursor: "pointer" }}
+          >
             Log in
           </span>
         </div>
@@ -146,6 +149,7 @@ function SignUp() {
               ...textStyle,
               fontSize: "20px",
               fontWeight: "500",
+              cursor: "pointer",
             }}
             onClick={handleRegisterNavigation}
           >

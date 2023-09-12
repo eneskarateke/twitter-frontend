@@ -18,6 +18,10 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   function handleRegistration() {
     const userData = { email, password };
 
@@ -60,9 +64,11 @@ function Register() {
             left: 355,
             top: 30,
             position: "absolute",
+            cursor: "pointer",
           }}
           src={TwitterLogo}
           alt="Twitter Logo"
+          onClick={handleLogoClick}
         />
         <div
           style={{
@@ -167,9 +173,9 @@ function Register() {
             left: 40,
             top: 400,
             position: "absolute",
-            cursor: "pointer", // Add a pointer cursor to indicate it's clickable
+            cursor: "pointer",
           }}
-          onClick={handleRegistration} // Trigger the click event on the surrounding div
+          onClick={handleRegistration}
         >
           <div
             style={{

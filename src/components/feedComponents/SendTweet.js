@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sendTweet } from "../../actions";
 
 function SendTweet() {
   const [tweetText, setTweetText] = useState("");
+  const dispatch = useDispatch();
+  const { loading, tweet, error } = useSelector((state) => state.tweet);
 
   const handleInputChange = (e) => {
     setTweetText(e.target.value);
@@ -9,7 +13,21 @@ function SendTweet() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Tweet submitted:", tweetText);
+
+    const trimmedTweetText = tweetText.trim();
+
+    if (!trimmedTweetText) {
+      alert("Tweet cannot be blank.");
+      return;
+    }
+
+    if (trimmedTweetText.length > 280) {
+      alert("Tweet length cannot be more than 280.");
+      return;
+    }
+
+    dispatch(sendTweet(trimmedTweetText));
+
     setTweetText("");
   };
 
@@ -23,8 +41,12 @@ function SendTweet() {
           onChange={handleInputChange}
           placeholder="What's happening?"
         />
-        <button type="submit">Tweet</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Sending..." : "Tweet"}
+        </button>
       </form>
+      {error && <p>Error: {error.message}</p>}
+      {tweet && <p>Tweet sent: {tweet.text}</p>}
     </div>
   );
 }
