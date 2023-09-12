@@ -1,4 +1,7 @@
 import axios from "axios";
+export const DELETE_TWEET = "DELETE_TWEET";
+export const LIKE_TWEET_SUCCESS = "LIKE_TWEET_SUCCESS";
+export const LIKE_TWEET_FAILURE = "LIKE_TWEET_FAILURE";
 
 export const SET_TWEET = "SET_TWEET";
 export const SET_TOKEN = "SET_TOKEN";
@@ -20,6 +23,44 @@ export const sendTweetFailure = (error) => ({
   type: SEND_TWEET_FAILURE,
   payload: error,
 });
+
+export const likeTweetSuccess = (tweetId) => ({
+  type: LIKE_TWEET_SUCCESS,
+  payload: tweetId,
+});
+
+export const likeTweetFailure = (error) => ({
+  type: LIKE_TWEET_FAILURE,
+  payload: error,
+});
+
+export const likeTweet = (tweetId) => {
+  return async (dispatch, getState) => {
+    const token = getState().feed.token;
+    if (!token) {
+      throw new Error("No token available. Unable to send tweet.");
+    }
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios.post(
+        `http://localhost:8080/tweet/like/${tweetId}`,
+        null,
+        config
+      );
+
+      dispatch(likeTweetSuccess(tweetId));
+    } catch (error) {
+      console.error("Error liking tweet:", error);
+      dispatch(likeTweetFailure(error));
+    }
+  };
+};
 
 export const sendTweet = (tweetText) => {
   return async (dispatch, getState) => {
@@ -50,6 +91,30 @@ export const sendTweet = (tweetText) => {
       dispatch(setTweets());
     } catch (error) {
       dispatch(sendTweetFailure(error));
+    }
+  };
+};
+
+export const deleteTweet = (tweetId) => {
+  return async (dispatch, getState) => {
+    const token = getState().feed.token;
+
+    if (token) {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        await axios.delete(`http://localhost:8080/tweet/${tweetId}`, config);
+
+        dispatch(setTweets());
+      } catch (error) {
+        console.error("Error deleting tweet:", error);
+      }
+    } else {
+      console.error("No token available. Unable to delete tweet.");
     }
   };
 };

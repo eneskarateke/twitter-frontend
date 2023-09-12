@@ -1,6 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteTweet } from "../../actions";
 
 function TweetCard({ tweet }) {
+  const dispatch = useDispatch();
+  const handleDeleteClick = () => {
+    dispatch(deleteTweet(tweet.id));
+  };
+
   return (
     <div>
       <p>{tweet.post}</p> <span>{tweet.userId}</span>
@@ -21,7 +28,7 @@ function TweetCard({ tweet }) {
         </div>
 
         <div>
-          <button>Delete Tweet</button>
+          <button onClick={handleDeleteClick}>Delete Tweet</button>
         </div>
 
         <div>
