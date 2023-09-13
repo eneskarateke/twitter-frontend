@@ -41,7 +41,7 @@ export default function Explore() {
           <div className="frame-14">
             <div className="follow">Follow </div>
           </div>
-          <img className="ellipse-5" src="ellipse-5.png" />
+          <img className="ellipse-5" src="ellipse-5.png" alt="aa" />
           <div className="group-23">
             <div className="mushtariy">Mushtariy </div>
             <div className="mushtar-565266">@Mushtar565266 </div>
@@ -51,7 +51,7 @@ export default function Explore() {
           <div className="frame-14">
             <div className="follow">Follow </div>
           </div>
-          <img className="ellipse-5" src="ellipse-5.png" />
+          <img className="ellipse-5" src="ellipse-5.png" alt="aa" />
           <div className="group-23">
             <div className="mushtariy">Shuhratbek </div>
             <div className="mushtar-565266">@mrshukhrat </div>

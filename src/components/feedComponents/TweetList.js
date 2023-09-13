@@ -13,9 +13,16 @@ function TweetList() {
   }, [dispatch]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       {reversedTweets.map((tweet, index) => (
-        <div key={index} style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          key={index}
+          style={{
+            border: "1px solid black",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <TweetCard tweet={tweet} />
         </div>
       ))}

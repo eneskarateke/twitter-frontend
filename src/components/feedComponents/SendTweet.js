@@ -5,7 +5,7 @@ import { sendTweet } from "../../actions";
 function SendTweet() {
   const [tweetText, setTweetText] = useState("");
   const dispatch = useDispatch();
-  const { loading, tweet, error } = useSelector((state) => state.tweet);
+  const { loading, error } = useSelector((state) => state.tweet);
 
   const handleInputChange = (e) => {
     setTweetText(e.target.value);
@@ -46,7 +46,6 @@ function SendTweet() {
         </button>
       </form>
       {error && <p>Error: {error.message}</p>}
-      {tweet && <p>Tweet sent: {tweet.text}</p>}
     </div>
   );
 }
