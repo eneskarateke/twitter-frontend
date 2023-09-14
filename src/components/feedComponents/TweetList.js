@@ -14,9 +14,9 @@ function TweetList() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-      {reversedTweets.map((tweet, index) => (
+      {reversedTweets.map((tweet) => (
         <div
-          key={index}
+          key={tweet.id}
           style={{
             border: "1px solid black",
             display: "flex",

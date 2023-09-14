@@ -6,6 +6,7 @@ import {
   likeTweet,
   unlikeTweet,
   retweetTweet,
+  updateTweet,
 } from "../../actions";
 import Modal from "react-modal";
 import "./tweetcard.css";
@@ -23,6 +24,19 @@ function TweetCard({ tweet }) {
 
   const [userLikeId, setUserLikeId] = useState(null);
   const [retweeted, setRetweeted] = useState(false);
+
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [updatedTweetText, setUpdatedTweetText] = useState("");
+
+  const handleOpenUpdateModal = () => {
+    setIsUpdateModalOpen(true);
+    setUpdatedTweetText(tweet.post);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setUpdatedTweetText("");
+  };
 
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
@@ -73,6 +87,10 @@ function TweetCard({ tweet }) {
     dispatch(sendReply(tweet.id, replyText));
     setIsReplyModalOpen(false);
   };
+  const handleUpdateTweetSubmit = () => {
+    dispatch(updateTweet(tweet.id, { tweet: updatedTweetText }));
+    setIsUpdateModalOpen(false);
+  };
 
   return (
     <div>
@@ -108,7 +126,7 @@ function TweetCard({ tweet }) {
         )}
         {isOwner && (
           <div>
-            <button>Update Tweet</button>
+            <button onClick={handleOpenUpdateModal}>Update Tweet</button>
           </div>
         )}
       </div>
@@ -139,6 +157,27 @@ function TweetCard({ tweet }) {
           />
           <button onClick={handleReplySubmit}>Submit Reply</button>
           <button onClick={handleCloseModal}>Cancel</button>
+        </Modal>
+      </div>
+      <div className="modal-container">
+        <Modal
+          isOpen={isUpdateModalOpen}
+          onRequestClose={handleCloseUpdateModal}
+          contentLabel="Update Tweet Modal"
+          className="custom-modal"
+          overlayClassName="custom-overlay"
+          appElement={document.getElementById("root")}
+        >
+          <h2>Update Tweet</h2>
+          <textarea
+            rows="4"
+            cols="40"
+            value={updatedTweetText}
+            onChange={(e) => setUpdatedTweetText(e.target.value)}
+            placeholder="Enter your updated tweet..."
+          />
+          <button onClick={handleUpdateTweetSubmit}>Submit Update</button>
+          <button onClick={handleCloseUpdateModal}>Cancel</button>
         </Modal>
       </div>
     </div>

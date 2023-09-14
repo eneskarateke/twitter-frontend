@@ -17,6 +17,9 @@ import {
   RETWEET_REQUEST,
   RETWEET_SUCCESS,
   RETWEET_FAILURE,
+  UPDATE_TWEET_FAILURE,
+  UPDATE_TWEET_REQUEST,
+  UPDATE_TWEET_SUCCESS,
 } from "./actions";
 
 const initialState = {
@@ -86,6 +89,25 @@ const tweetReducer = (state = initialState, action) => {
         error: null,
       };
     case RETWEET_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case UPDATE_TWEET_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_TWEET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case UPDATE_TWEET_FAILURE:
       return {
         ...state,
         loading: false,

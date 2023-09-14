@@ -25,6 +25,10 @@ export const SEND_TWEET_REQUEST = "SEND_TWEET_REQUEST";
 export const SEND_TWEET_SUCCESS = "SEND_TWEET_SUCCESS";
 export const SEND_TWEET_FAILURE = "SEND_TWEET_FAILURE";
 
+export const UPDATE_TWEET_REQUEST = "UPDATE_TWEET_REQUEST";
+export const UPDATE_TWEET_SUCCESS = "UPDATE_TWEET_SUCCESS";
+export const UPDATE_TWEET_FAILURE = "UPDATE_TWEET_FAILURE";
+
 export const retweetRequest = () => ({
   type: RETWEET_REQUEST,
 });
@@ -51,6 +55,20 @@ export const deleteReplyFailure = (error) => ({
   type: DELETE_REPLY_FAILURE,
   payload: error,
 });
+
+export const updateTweetRequest = () => ({
+  type: UPDATE_TWEET_REQUEST,
+});
+
+export const updateTweetSuccess = () => ({
+  type: UPDATE_TWEET_SUCCESS,
+});
+
+export const updateTweetFailure = (error) => ({
+  type: UPDATE_TWEET_FAILURE,
+  payload: error,
+});
+
 export const sendTweetRequest = () => ({
   type: SEND_TWEET_REQUEST,
 });
@@ -90,6 +108,36 @@ export const unlikeTweetFailure = (error) => ({
 export const unlikeTweetRequest = () => ({
   type: UNLIKE_TWEET_REQUEST,
 });
+
+export const updateTweet = (tweetId, updatedTweetData) => {
+  return async (dispatch, getState) => {
+    dispatch(updateTweetRequest());
+
+    try {
+      const token = getState().feed.token;
+      if (!token) {
+        throw new Error("No token available. Unable to update tweet.");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await axios.put(
+        `http://localhost:8080/tweet/${tweetId}`,
+        updatedTweetData,
+        config
+      );
+
+      dispatch(updateTweetSuccess());
+      dispatch(setTweets());
+    } catch (error) {
+      dispatch(updateTweetFailure(error));
+    }
+  };
+};
 
 export const retweetTweet = (tweetId) => {
   return async (dispatch, getState) => {
